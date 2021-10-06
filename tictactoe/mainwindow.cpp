@@ -72,9 +72,9 @@ void MainWindow::GoToGame()
         mButtons.clear();
         mButtons.reserve(gridSize * gridSize);
 
-        for (int i = 0; i != mGame.GetGridSize(); i++)
+        for (int i = 0; i != gridSize; i++)
         {
-            for (int j = 0; j != mGame.GetGridSize(); j++)
+            for (int j = 0; j != gridSize; j++)
             {
                 QPushButton* pb = new QPushButton(this);
 
@@ -143,6 +143,8 @@ void MainWindow::ProcessButton(QPushButton* pb, Game::UiSign sign)
 
 void MainWindow::PlayerClicked()
 {
+    QMutexLocker locker(&mUserMutex); //for very fast mouse clicks
+
     if (!mWorker.isRunning())
     {
         QPushButton* pb = qobject_cast<QPushButton*>(QObject::sender());

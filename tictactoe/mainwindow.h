@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QThread>
+#include <QMutexLocker>
 #include "game.h"
 
 QT_BEGIN_NAMESPACE
@@ -78,6 +79,7 @@ private:
     Ui::MainWindow *ui;
     QList<QPushButton*> mButtons;
     GameThread mWorker;
+    QMutex mUserMutex;
     Game mGame;
 
 };
